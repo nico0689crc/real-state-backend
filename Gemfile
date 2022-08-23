@@ -45,7 +45,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'should_not'
   gem 'shoulda-matchers'  
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 end
 
 group :development do
@@ -53,6 +52,7 @@ group :development do
   # gem "spring"
 end
 
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 gem 'draper'
 gem 'active_model_serializers'
 gem 'sort_n_params', git: 'https://github.com/mauro-labattaglia/sort_n_params.git'
