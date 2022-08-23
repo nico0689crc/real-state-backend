@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-DatabaseCleaner.clean_with :truncation
+DatabaseCleaner.clean_with :truncation if Rails.env.development?
 
 ####### PROPERTIES SEEDING - START #######
 properties_array = []
