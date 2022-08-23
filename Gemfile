@@ -45,6 +45,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'should_not'
   gem 'shoulda-matchers'  
+  gem 'dotenv-rails'
 end
 
 group :development do
