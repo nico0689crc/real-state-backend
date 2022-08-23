@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jobs_applicant: one
+  pipeline: one
+  passed: false
+
+two:
+  jobs_applicant: two
+  pipeline: two
+  passed: false

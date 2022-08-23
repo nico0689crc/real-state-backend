@@ -1,0 +1,14 @@
+en:
+  hello: "Hello world"
+
+  messages:
+    invalid_token:            'Invalid token'
+    create:
+      success:                'Successfully created.'
+      error:                  'Could not create.'
+    update:
+      success:                'Successfully updated.'
+      error:                  'Could not update.'
+    destroy:
+      success:                'Successfully destroyed.'
+      error:                  'Could not destroy.'
