@@ -66,7 +66,7 @@ Rails.application.configure do
     authentication:       'plain',
     enable_starttls_auto: true,
   }
-  config.action_mailer.default_url_options = { protocol: ENV['HOST_PROTOCOL'] }
+  config.action_mailer.default_url_options = { protocol: ENV['HOST_PROTOCOL'], host: ENV['HOST_URL_WITHOUT_PROTOCOL'] }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
