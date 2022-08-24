@@ -11,9 +11,6 @@ module ApiResponse
   private
 
   def meta_data_json(presenter)
-    puts request.query_parameters().to_query
-    
-    
     links = {}
     links[:first] = get_query_page(1) if current_page > 1
     links[:previous] = get_query_page(current_page - 1) if current_page > 2
