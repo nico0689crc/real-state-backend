@@ -12,6 +12,8 @@ class CreateProperties < ActiveRecord::Migration[7.0]
       t.text :facilities
       t.text :features
       t.integer :sq_mts
+      t.integer :bathroom_amount
+      t.integer :beedroom_amount
 
       t.timestamps
     end

@@ -1,4 +1,6 @@
 class Property < ApplicationRecord
+  has_many :property_medias
+
   enum p_type: [:house, :appartment, :commercial_building]
   enum p_status: [:rent, :sale, :inactive]
 

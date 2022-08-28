@@ -7,11 +7,32 @@
 #   Character.create(name: "Luke", movie: movies.first)
 DatabaseCleaner.clean_with :truncation if Rails.env.development?
 
-####### PROPERTIES SEEDING - START #######
-properties_array = []
+####### PROPERTIES SEEDING - START #######s
 icons = ["AccessibleIcon", "AdfScannerIcon", "AddchartIcon", "ArrowCircleLeftIcon", "CarRepairIcon"]
+images = [
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/1.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/2.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/3.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/4.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/5.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/6.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/7.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/8.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/9.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/10.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/11.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/12.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/13.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/14.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/15.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/16.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/17.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/18.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/19.jpg",
+  "https://themes.pixelstrap.com/sheltos/assets/images/property/20.jpg"
+]
 
-100.times do
+138.times do
   facilities_map = []
   features_map = []
   
@@ -29,7 +50,7 @@ icons = ["AccessibleIcon", "AdfScannerIcon", "AddchartIcon", "ArrowCircleLeftIco
     })
   end
 
-  properties_array.push({
+  property = Property.create({
       title: Faker::Lorem.sentence(word_count: 3, supplemental: true, random_words_to_add: 2),
       description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 2),
       p_type: Faker::Number.between(from: 0, to: 2),
@@ -40,9 +61,17 @@ icons = ["AccessibleIcon", "AdfScannerIcon", "AddchartIcon", "ArrowCircleLeftIco
       coordinates: "#{Faker::Address.latitude},#{Faker::Address.longitude}",
       facilities: facilities_map.to_json,
       features: features_map.to_json,
-      sq_mts: Faker::Number.between(from: 500, to: 3000)
-  }) 
+      sq_mts: Faker::Number.between(from: 500, to: 3000),
+      bathroom_amount: Faker::Number.between(from: 0, to: 4),
+      beedroom_amount: Faker::Number.between(from: 0, to: 4)
+  })
+
+  rand(1..10).times do
+    PropertyMedia.create({
+      media_path: images[Faker::Number.between(from: 0, to: 19)],
+      property: property
+    })
+  end
 end 
 
-Property.create(properties_array)
 ####### PROPERTIES SEEDING - END #######

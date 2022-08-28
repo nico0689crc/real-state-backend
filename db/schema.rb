@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_10_115213) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_28_190101) do
   create_table "properties", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -23,8 +23,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_115213) do
     t.text "facilities"
     t.text "features"
     t.integer "sq_mts"
+    t.integer "bathroom_amount"
+    t.integer "beedroom_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "property_media", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "media_path", null: false
+    t.integer "media_type", default: 0
+    t.integer "status", default: 0
+    t.bigint "property_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_property_media_on_property_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -52,4 +64,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_10_115213) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "property_media", "properties"
 end
