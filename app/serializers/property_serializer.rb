@@ -1,5 +1,5 @@
 class PropertySerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :p_type, :p_status, :operating_since, :price, :address, :coordinates, :facilities, :features, :sq_mts, :created_at
+  attributes :id, :title, :description, :p_type, :p_status, :operating_since, :price, :address, :coordinates, :facilities, :features, :sq_mts, :bathroom_amount, :beedroom_amount, :created_at
 
   has_many :property_medias, serializer: PropertyMediaSerializer, key: :media
 
@@ -11,4 +11,7 @@ class PropertySerializer < ActiveModel::Serializer
     JSON.parse(object.features)
   end
 
+  def created_at
+    object.created_at.strftime("%B %d, %Y")
+  end
 end
