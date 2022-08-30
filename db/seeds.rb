@@ -33,22 +33,6 @@ images = [
 ]
 
 138.times do
-  facilities_map = []
-  features_map = []
-  
-  10.times do 
-    facilities_map.push({ 
-      "name" => Faker::House.room,
-      "icon" => icons[Faker::Number.between(from: 0, to: 4)],
-      "important" => Faker::Boolean.boolean(true_ratio: 0.4)
-    })
-
-    features_map.push({ 
-      "name" => Faker::Construction.heavy_equipment,
-      "icon" => icons[Faker::Number.between(from: 0, to: 4)],
-      "important" => Faker::Boolean.boolean(true_ratio: 0.4)
-    })
-  end
 
   property = Property.create({
       title: Faker::Lorem.sentence(word_count: 3, supplemental: true, random_words_to_add: 2),
@@ -59,8 +43,6 @@ images = [
       price: Faker::Number.within(range: 20.000..300.000),
       address: Faker::Address.full_address,
       coordinates: "#{Faker::Address.latitude},#{Faker::Address.longitude}",
-      facilities: facilities_map.to_json,
-      features: features_map.to_json,
       sq_mts: Faker::Number.between(from: 500, to: 3000),
       bathroom_amount: Faker::Number.between(from: 0, to: 4),
       beedroom_amount: Faker::Number.between(from: 0, to: 4)
@@ -69,6 +51,27 @@ images = [
   rand(1..10).times do
     PropertyMedia.create({
       media_path: images[Faker::Number.between(from: 0, to: 19)],
+      property: property
+    })
+  end
+
+  rand(1..10).times do
+    PropertyAttribute.create({
+      name: Faker::House.room,
+      icon_name: icons[Faker::Number.between(from: 0, to: 4)],
+      important: Faker::Boolean.boolean(true_ratio: 0.2),
+      p_attribute_type: :feature,
+      p_attribute_value: Faker::Number.between(from: 0, to: 4),
+      property: property
+    })
+  end
+
+  rand(1..10).times do
+    PropertyAttribute.create({
+      name: Faker::Construction.heavy_equipment,
+      icon_name: icons[Faker::Number.between(from: 0, to: 4)],
+      important: Faker::Boolean.boolean(true_ratio: 0.2),
+      p_attribute_type: :facility,
       property: property
     })
   end

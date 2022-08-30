@@ -1,5 +1,6 @@
 class Property < ApplicationRecord
   has_many :property_medias
+  has_many :property_attributes
 
   enum p_type: [:house, :appartment, :commercial_building]
   enum p_status: [:rent, :sale, :inactive]
@@ -12,4 +13,12 @@ class Property < ApplicationRecord
   validates :title, presence: true
   validates :title, presence: true
   validates :title, presence: true
+
+  def facilities
+    self.property_attributes.filter_facilities
+  end
+
+  def features
+    self.property_attributes.filter_features
+  end
 end

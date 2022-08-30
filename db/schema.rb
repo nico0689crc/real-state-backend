@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_28_190101) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_30_223626) do
   create_table "properties", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -20,13 +20,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_190101) do
     t.float "price"
     t.string "address"
     t.string "coordinates"
-    t.text "facilities"
-    t.text "features"
     t.integer "sq_mts"
     t.integer "bathroom_amount"
     t.integer "beedroom_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "property_attributes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "icon_name", null: false
+    t.string "p_attribute_value"
+    t.boolean "important", null: false
+    t.integer "p_attribute_type", null: false
+    t.bigint "property_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_property_attributes_on_property_id"
   end
 
   create_table "property_media", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -64,5 +74,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_190101) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "property_attributes", "properties"
   add_foreign_key "property_media", "properties"
 end
