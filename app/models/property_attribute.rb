@@ -8,6 +8,5 @@ class PropertyAttribute < ApplicationRecord
 
   validates :name, presence: true
   validates :icon_name, presence: true
-  validates :important, presence: true
   validates :p_attribute_type, presence: true
 end
