@@ -4,7 +4,7 @@ class CreatePropertyAttributes < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.string :icon_name, null: false
       t.string :p_attribute_value
-      t.boolean :important, null: false
+      t.boolean :important, default: false
       t.integer :p_attribute_type, null: false
       t.belongs_to :property, foreign_key: true
       t.timestamps
