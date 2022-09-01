@@ -1,5 +1,6 @@
 class Property < ApplicationRecord
   has_many :property_attributes
+  has_many_attached :medias, dependent: :delete_all
 
   enum p_type: [:house, :appartment, :commercial_building]
   enum p_status: [:rent, :sale, :inactive]

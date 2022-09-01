@@ -9,28 +9,28 @@ DatabaseCleaner.clean_with :truncation if Rails.env.development?
 
 ####### PROPERTIES SEEDING - START #######s
 icons = ["AccessibleIcon", "AdfScannerIcon", "AddchartIcon", "ArrowCircleLeftIcon", "CarRepairIcon"]
-images = [
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/1.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/2.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/3.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/4.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/5.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/6.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/7.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/8.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/9.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/10.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/11.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/12.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/13.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/14.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/15.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/16.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/17.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/18.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/19.jpg",
-  "https://themes.pixelstrap.com/sheltos/assets/images/property/20.jpg"
-]
+# images = [
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/1.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/2.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/3.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/4.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/5.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/6.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/7.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/8.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/9.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/10.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/11.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/12.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/13.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/14.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/15.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/16.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/17.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/18.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/19.jpg",
+#   "https://themes.pixelstrap.com/sheltos/assets/images/property/20.jpg"
+# ]
 
 138.times do
 
@@ -48,12 +48,12 @@ images = [
       beedroom_amount: Faker::Number.between(from: 0, to: 4)
   })
 
-  rand(1..10).times do
-    PropertyMedia.create({
-      media_path: images[Faker::Number.between(from: 0, to: 19)],
-      property: property
-    })
-  end
+  # rand(1..10).times do
+  #   PropertyMedia.create({
+  #     media_path: images[Faker::Number.between(from: 0, to: 19)],
+  #     property: property
+  #   })
+  # end
 
   rand(1..10).times do
     PropertyAttribute.create({
