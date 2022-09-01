@@ -1,5 +1,4 @@
 class Property < ApplicationRecord
-  has_many :property_medias
   has_many :property_attributes
 
   enum p_type: [:house, :appartment, :commercial_building]
