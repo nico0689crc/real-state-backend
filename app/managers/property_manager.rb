@@ -84,6 +84,8 @@ class PropertyManager
         coordinates
         sq_mts
         medias
+        bathroom_amount
+        beedroom_amount
       ]
     end
 end
