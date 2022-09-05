@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :property_attributes
-  resources :property_media
   
   mount_devise_token_auth_for 'User', at: 'auth'
   

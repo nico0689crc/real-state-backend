@@ -1,7 +1,19 @@
 class PropertySerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :p_type, :p_status, :operating_since, :price, :address, :coordinates, :sq_mts, :bathroom_amount, :beedroom_amount, :created_at, :facilities, :features
+  include Rails.application.routes.url_helpers
+  
+  attributes :id, :title, :description, :p_type, :p_status, :operating_since, :price, :address, :coordinates, :sq_mts, :bathroom_amount, :beedroom_amount, :created_at, :facilities, :features, :media
 
-  has_many :property_medias, serializer: PropertyMediaSerializer, key: :media
+  def media
+    media = []
+
+    if object.medias.attached?
+      media = object.medias.map do |media|
+        { id: media.id, content_type: media.blob.content_type, media_path: url_for(media) }
+      end
+    end
+
+    media
+  end
 
   def facilities
     object.facilities.select(:id, :name, :icon_name, :important)
