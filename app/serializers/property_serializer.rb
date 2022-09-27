@@ -8,7 +8,7 @@ class PropertySerializer < ActiveModel::Serializer
 
     if object.medias.attached?
       media = object.medias.map do |media|
-        { id: media.id, content_type: media.blob.content_type, media_path: url_for(media) }
+        { id: media.id, content_type: media.blob.content_type, media_path: media.url }
       end
     end
 
