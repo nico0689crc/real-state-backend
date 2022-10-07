@@ -6,7 +6,7 @@ class CreatePropertyAttributes < ActiveRecord::Migration[7.0]
       t.string :p_attribute_value
       t.boolean :important, default: false
       t.integer :p_attribute_type, null: false
-      t.belongs_to :property, foreign_key: true
+      t.belongs_to :property
       t.timestamps
     end
   end
