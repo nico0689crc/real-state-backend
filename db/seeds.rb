@@ -18,16 +18,16 @@ icons = ["AccessibleIcon", "AdfScannerIcon", "AddchartIcon", "ArrowCircleLeftIco
 60.times do
   property = Property.create({
     title: Faker::Lorem.sentence(word_count: 3, supplemental: true, random_words_to_add: 2),
-    description: Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 2),
+    description: Faker::Lorem.paragraph,
     p_type: Faker::Number.between(from: 0, to: 2),
     p_status: Faker::Number.between(from: 0, to: 2),
     operating_since: Faker::Number.between(from: 1950, to: 2022).to_s,
-    price: Faker::Number.within(range: 20.000..300.000),
+    price: Faker::Number.within(range: 200000..3000000),
     address: Faker::Address.full_address,
     coordinates: "#{Faker::Address.latitude},#{Faker::Address.longitude}",
     sq_mts: Faker::Number.between(from: 500, to: 3000),
-    bathroom_amount: Faker::Number.between(from: 0, to: 4),
-    beedroom_amount: Faker::Number.between(from: 0, to: 4)
+    bathroom_amount: Faker::Number.between(from: 1, to: 4),
+    beedroom_amount: Faker::Number.between(from: 1, to: 4)
   })
 
   rand(1..10).times do
