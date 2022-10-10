@@ -3,6 +3,7 @@ module Api
     module Admin
       class PropertiesController < AdminController
         before_action :set_property, only: %i[ show update destroy ]
+        before_action :set_media, only: %i[ medias_destroy ]
 
         # GET /properties
         def index
@@ -48,10 +49,24 @@ module Api
           end
         end
 
+        def medias_destroy
+          property_manager = PropertyManager.new(object: @media)
+        
+          if property_manager.medias_destroy
+            json_response(message: I18n.t(:success, scope: %i[messages destroy]), status: :no_content)
+          else
+            json_response(message: I18n.t(:error, scope: %i[messages destroy]), data: property_manager.object.errors, status: :unprocessable_entity)
+          end
+        end
+
         private
           # Use callbacks to share common setup or constraints between actions.
           def set_property
             @property = Property.find(params[:id])
+          end
+
+          def set_media
+            @media = Property.find(params[:property_id]).medias.attachments.find(params[:id])
           end
       end
     end

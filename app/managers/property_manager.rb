@@ -11,7 +11,6 @@ class PropertyManager
     end
   
     def create
-      # binding.pry
       ActiveRecord::Base.transaction do
         @object = Property.new(object_params)
         if @object.save!
@@ -59,11 +58,34 @@ class PropertyManager
     end
   
     def update
-      @object.update(object_params)
+      ActiveRecord::Base.transaction do
+        if @object.update(object_params)
+          if @object.medias.attach(@params[:property][:medias])
+            true
+          else
+            raise ActiveRecord::Rollback
+            false
+          end
+        else
+          raise ActiveRecord::Rollback
+          false
+        end
+      end
     end
   
     def destroy
-      @object.destroy
+      ActiveRecord::Base.transaction do
+        if @object.medias.attachments.purge
+          @object.destroy
+        else
+          raise ActiveRecord::Rollback
+          false
+        end
+      end
+    end
+
+    def medias_destroy
+      @object.purge_later
     end
   
     private

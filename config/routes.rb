@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
       namespace :admin do
-        resources :properties
+        resources :properties do
+          resources :medias, only: [:delete] do
+            delete :destroy, to: "properties#medias_destroy", on: :member
+          end
+        end
       end
 
       namespace :public do
