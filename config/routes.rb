@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :property_attributes
-  
-  mount_devise_token_auth_for 'User', at: 'auth'
+
+  mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+    registrations:  'overrides/registrations'
+  }
   
   namespace :api, defaults: {format: :json} do
     namespace :v1 do
@@ -11,6 +13,8 @@ Rails.application.routes.draw do
             delete :destroy, to: "properties#medias_destroy", on: :member
           end
         end
+
+        resources :users
       end
 
       namespace :public do
@@ -18,9 +22,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 end
