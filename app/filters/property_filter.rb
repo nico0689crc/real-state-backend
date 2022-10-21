@@ -3,7 +3,7 @@ class PropertyFilter
 
   attr_accessor :query
 
-  def call(current_entity)
+  def call
     properties = Property.all
     properties = search(properties)
     properties
