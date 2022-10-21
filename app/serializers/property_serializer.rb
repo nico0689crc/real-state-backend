@@ -1,5 +1,4 @@
 class PropertySerializer < ActiveModel::Serializer
-  include Rails.application.routes.url_helpers
   
   attributes :id, :title, :description, :p_type, :p_status, :operating_since, :price, :address, :coordinates, :sq_mts, :bathroom_amount, :beedroom_amount, :created_at, :facilities, :features, :media
 

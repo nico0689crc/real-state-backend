@@ -1,18 +1,51 @@
-user = User.find_by(email: 'nico.06.89crc@gmail.com')
+User.create(
+  allow_password_change: false,
+  confirmation_token: "zxxZSxuEs9RhXSJCLUmn",
+  confirmed_at: "2022-10-08 12:38:09.409191",
+  confirmation_sent_at: "2022-10-08 12:37:58.636832",
+  email: "nico.06.89crc@gmail.com",
+  password: 'AAEERRaaa!@2022',
+  password_confirmation: 'AAEERRaaa!@2022',
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  phone_number: Faker::PhoneNumber.cell_phone_in_e164,
+  address: Faker::Address.full_address,
+  date_of_birth: Faker::Date.in_date_period(year: 1989),
+  gender: Faker::Gender.type,
+  user_role: 1
+)
 
-if user.nil?
+User.create(
+  allow_password_change: false,
+  confirmation_token: "3aBLRD83QTuJJsiokGZz",
+  confirmed_at: "2022-10-16 11:34:28.726967",
+  confirmation_sent_at: "2022-10-16 11:32:51.9347",
+  email: "nico0689crcde@gmail.com",
+  password: 'AAEERRaaa!@2022',
+  password_confirmation: 'AAEERRaaa!@2022',
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  phone_number: Faker::PhoneNumber.cell_phone_in_e164,
+  address: Faker::Address.full_address,
+  date_of_birth: Faker::Date.in_date_period(year: 1989),
+  gender: Faker::Gender.type,
+  user_role: 2
+)
+
+33.times do
   User.create(
-    allow_password_change: false,
-    confirmation_token: "zxxZSxuEs9RhXSJCLUmn",
-    confirmed_at: "2022-10-08 12:38:09.409191",
-    confirmation_sent_at: "2022-10-08 12:37:58.636832",
-    email: "nico.06.89crc@gmail.com",
-    password: 'nicolas',
-    password_confirmation: 'nicolas',
+    email: Faker::Internet.email,
+    password: 'AAEERRaaa!@2022',
+    password_confirmation: 'AAEERRaaa!@2022',
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    phone_number: Faker::PhoneNumber.cell_phone_in_e164,
+    address: Faker::Address.full_address,
+    date_of_birth: Faker::Date.in_date_period(year: 1989),
+    gender: Faker::Gender.type
   )
 end
 
-Property.destroy_all
 icons = ["AccessibleIcon", "AdfScannerIcon", "AddchartIcon", "ArrowCircleLeftIcon", "CarRepairIcon"]
 
 60.times do

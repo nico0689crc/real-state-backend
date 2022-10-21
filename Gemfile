@@ -60,3 +60,4 @@ gem 'sort_n_params', git: 'https://github.com/mauro-labattaglia/sort_n_params.gi
 gem 'will_paginate'
 gem 'devise_token_auth', '>= 1.2.0', git: "https://github.com/lynndylanhurley/devise_token_auth"
 gem 'aws-sdk-s3'
+gem 'cancancan'
