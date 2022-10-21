@@ -1,9 +1,10 @@
 class BaseManager
   attr_reader :object
 
-  def initialize(params: nil, object: nil)
+  def initialize(params: nil, object: nil, current_user: nil)
     @params = params if params.present?
     @object = object if object.present?
+    @current_user = current_user if current_user.present?
   end
 
   def build

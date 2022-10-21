@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   resources :property_attributes
 
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-    registrations:  'overrides/registrations'
+    registrations:  'overrides/registrations',
+    sessions:  'overrides/sessions',
   }
   
   namespace :api, defaults: {format: :json} do

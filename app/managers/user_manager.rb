@@ -4,10 +4,28 @@ class UserManager < BaseManager
   end
 
   def create
-    @object = User.new(object_params)
-    @object.send_password_reset_user_initial = true
-    @object.save
-  end 
+    ActiveRecord::Base.transaction do
+      @object = User.new(object_params)
+      @object.send_password_reset_user_initial = true
+      
+      if @object.save
+        if @object.send_reset_password_instructions
+          true
+        else
+          raise ActiveRecord::Rollback
+          false
+        end 
+      end
+    end
+  end
+  
+  def destroy
+    if @object.is_not_current_user?(@current_user)
+      @object.destroy
+    else
+      false
+    end
+  end
 
   private
 

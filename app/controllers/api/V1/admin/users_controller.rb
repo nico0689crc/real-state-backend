@@ -17,7 +17,7 @@ module Api
 
         # POST /users
         def create
-          user_manager = UserManager.new(params: params)
+          user_manager = UserManager.new(params: params, current_user: current_user)
         
           if user_manager.create
             json_response(message: I18n.t(:success, scope: %i[messages create]), data: UserSerializer.new(user_manager.object), status: :created)
@@ -39,7 +39,7 @@ module Api
 
         # DELETE /users/1
         def destroy
-          user_manager = UserManager.new(object: @user)
+          user_manager = UserManager.new(object: @user, current_user: current_user)
         
           if user_manager.destroy
             json_response(message: I18n.t(:success, scope: %i[messages destroy]), status: :no_content)
