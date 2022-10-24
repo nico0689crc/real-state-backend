@@ -4,27 +4,32 @@ class UserManager < BaseManager
   end
 
   def create
-    ActiveRecord::Base.transaction do
-      @object = User.new(object_params)
-      @object.send_password_reset_user_initial = true
-      
+    @object = User.new(object_params)
+    @object.send_password_reset_user_initial = true
+    if @object.check_permitted_roles(@current_user, object_params[:user_role])
       if @object.save
-        if @object.send_reset_password_instructions
-          true
-        else
-          raise ActiveRecord::Rollback
-          false
-        end 
+        @object.send_reset_password_instructions
+        @object 
+      else
+        return false
       end
+    else
+      return false
     end
+  end
+
+  def update
+    return false unless @object.check_permitted_roles(@current_user, object_params[:user_role])
+    @object.update(object_params)
+  end
+
+  def update_password
+    @object.update_password(object_params)
   end
   
   def destroy
-    if @object.is_not_current_user?(@current_user)
-      @object.destroy
-    else
-      false
-    end
+    return false unless @object.is_not_current_user?(@current_user)
+    @object.destroy
   end
 
   private
@@ -34,6 +39,7 @@ class UserManager < BaseManager
       first_name
       last_name
       email
+      current_password
       password
       password_confirmation
       phone_number

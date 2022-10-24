@@ -15,7 +15,9 @@ Rails.application.routes.draw do
           end
         end
 
-        resources :users
+        resources :users do
+          patch :update_password, on: :member
+        end
       end
 
       namespace :public do
