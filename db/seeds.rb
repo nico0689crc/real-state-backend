@@ -12,7 +12,7 @@ User.create(
   address: Faker::Address.full_address,
   date_of_birth: Faker::Date.in_date_period(year: 1989),
   gender: Faker::Gender.type,
-  user_role: 1
+  user_role: 0
 )
 
 User.create(
@@ -29,7 +29,7 @@ User.create(
   address: Faker::Address.full_address,
   date_of_birth: Faker::Date.in_date_period(year: 1989),
   gender: Faker::Gender.type,
-  user_role: 2
+  user_role: 1
 )
 
 33.times do

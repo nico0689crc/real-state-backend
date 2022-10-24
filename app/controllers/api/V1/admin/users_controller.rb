@@ -2,7 +2,7 @@ module Api
   module V1
     module Admin
       class UsersController < AdminController
-        before_action :set_user, only: %i[ show update destroy ]
+        before_action :set_user, only: %i[ show update destroy update_password ]
 
         # GET /users
         def index
@@ -28,10 +28,21 @@ module Api
 
         # PATCH/PUT /users/1
         def update
-          user_manager = UserManager.new(params: params, object: @user)
+          user_manager = UserManager.new(params: params, object: @user, current_user: current_user)
         
           if user_manager.update
-            json_response(message: I18n.t(:success, scope: %i[messages update]), status: :no_content)
+            json_response(message: I18n.t(:success, scope: %i[messages update]), data: UserSerializer.new(user_manager.object), status: :ok)
+          else
+            json_response(message: I18n.t(:error, scope: %i[messages update]), data: user_manager.object.errors, status: :unprocessable_entity)
+          end
+        end
+
+        # PATCH/PUT /users/1/update-password
+        def update_password
+          user_manager = UserManager.new(params: params, object: @user, current_user: current_user)
+        
+          if user_manager.update_password
+            json_response(message: I18n.t(:success, scope: %i[messages update]), data: UserSerializer.new(user_manager.object), status: :ok)
           else
             json_response(message: I18n.t(:error, scope: %i[messages update]), data: user_manager.object.errors, status: :unprocessable_entity)
           end

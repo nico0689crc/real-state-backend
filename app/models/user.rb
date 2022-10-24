@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
 
   #--------------------------------------------- MISC
   enum user_role: [
-    :user_regular,
     :super_administrator,
     :administrator,
+    :user_regular,
     :agency_administrator,
     :agency_user,
     :banned
@@ -33,10 +33,50 @@ class User < ActiveRecord::Base
   before_update :skip_confirmation!
 
   #--------------------------------------------- METHODS
-  def password_complexity
-    if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&]).{4,}$/)
-      errors.add :password, "Password format invalid."
+
+  def is_not_current_user?(current_user)
+    unless current_user.id != id 
+      errors.add(:message, "You cannot destroy yourself.")
+      return false
     end
+    return true
+  end
+
+  def check_permitted_roles(current_user, p_user_role)
+    unless permitted_roles(current_user).include?(p_user_role.to_sym)
+      errors.add(:user_role, "You are not allowed to updated to this role.")
+      return false
+    end
+    return true
+  end
+
+  def update_password(params)
+    errors.add(:current_password, "Current Password is empty.") if params[:current_password].blank?
+    errors.add(:current_password, "Current Password is invalid.") unless valid_password?(params[:current_password])
+    
+    if params[:password].blank? || params[:password_confirmation].blank?
+      errors.add(:password, "Password is empty.") if params[:password].blank?
+      errors.add(:password_confirmation, "Password Confirmation is empty.") if params[:password_confirmation].blank?
+    else
+      if passwords_match(params)
+        errors.add(:password, "Password format is not valid.") unless params[:password].match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&]).{4,}$/)
+      else
+        errors.add(:password_confirmation, "Password Confirmation does not match with Password.")
+      end
+    end
+    params.delete(:current_password)
+    errors.empty? ? update(params) : false
+  end
+
+  private
+
+  def passwords_match(params)
+    params[:password] == params[:password_confirmation]
+  end
+
+  def password_required?
+    return false if send_password_reset_user_initial
+    super
   end
 
   def acceptable_avatar_image
@@ -53,19 +93,29 @@ class User < ActiveRecord::Base
     end
   end
 
-  def is_not_current_user?(current_user)
-    if current_user.id == self.id
-      errors.add(:message, "You cannot destroy yourself.")
-      false
-    else
-      true
+  def password_complexity
+    if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&]).{4,}$/)
+      errors.add :password, "Password format invalid."
     end
   end
 
-  protected
-
-  def password_required?
-    return false if send_password_reset_user_initial
-    super
+  def permitted_roles(current_user)
+    if current_user.super_administrator?
+      if current_user.id == self.id
+        [:super_administrator]
+      else
+        [:super_administrator, :administrator, :user_regular, :agency_administrator, :agency_user, :banned]
+      end
+    elsif current_user.administrator?
+      [:administrator]
+    elsif current_user.agency_administrator?
+      [:agency_administrator, :agency_user]
+    elsif current_user.agency_user?
+      [:agency_user]
+    elsif current_user.user_regular?
+      [:user_regular]
+    else
+      [:banned]
+    end
   end
 end
