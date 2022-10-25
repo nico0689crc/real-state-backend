@@ -1,8 +1,8 @@
 require "active_support/core_ext/integer/time"
-Rails.application.routes.default_url_options[:host] = ENV['DEFAULT_URL_OPTIONS_HOST']
+Rails.application.routes.default_url_options[:host] = 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.hosts << ENV['DEFAULT_URL_OPTIONS_HOST']
   # Code is not reloaded between requests.
   config.cache_classes = true
 
