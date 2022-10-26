@@ -17,7 +17,16 @@ module Overrides
 
         yield @resource if block_given?
 
-        redirect_to DeviseTokenAuth::Url.generate(@redirect_url, reset_password_token: resource_params[:reset_password_token])
+        if require_client_password_reset_token?
+          redirect_to DeviseTokenAuth::Url.generate(@redirect_url, reset_password_token: resource_params[:reset_password_token])
+        else
+
+          redirect_headers = build_redirect_headers(token.token,
+                                                    token.client,
+                                                    redirect_header_options)
+          
+          redirect_to(@resource.build_auth_url(@redirect_url, redirect_headers))
+        end
       else
         render_edit_error
       end
