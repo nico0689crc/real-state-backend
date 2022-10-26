@@ -13,7 +13,8 @@ module Overrides
         skip_confirmation: confirmable_enabled? && !@resource.confirmed_at,
         allow_password_change: recoverable_enabled?,
         save: @resource.save!,
-        block_given: block_given?
+        block_given: block_given?,
+        require_client_password_reset_token: require_client_password_reset_token?
       }
     end
   end
