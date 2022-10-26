@@ -12,7 +12,8 @@ module Overrides
         create_token: @resource.create_token,
         skip_confirmation: confirmable_enabled? && !@resource.confirmed_at,
         allow_password_change: recoverable_enabled?,
-        save: @resource.save!
+        save: @resource.save!,
+        block_given: block_given?
       }
     end
   end
