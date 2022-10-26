@@ -1,5 +1,5 @@
 require "active_support/core_ext/integer/time"
-
+Rails.application.routes.default_url_options[:host] = 'real-estate-api.nicolasfernandez.online'
 Rails.application.config.hosts << "real-estate-api.nicolasfernandez.online"
 
 Rails.application.configure do
