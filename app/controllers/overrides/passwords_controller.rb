@@ -9,7 +9,10 @@ module Overrides
         token: resource_params[:reset_password_token],
         first_condition: @resource && @resource.reset_password_period_valid?,
         require_client_password_reset_token: require_client_password_reset_token?,
-        create_token: @resource.create_token 
+        create_token: @resource.create_token,
+        skip_confirmation: confirmable_enabled? && !@resource.confirmed_at,
+        allow_password_change: recoverable_enabled?,
+        save: @resource.save!
       }
     end
   end
