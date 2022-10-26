@@ -5,7 +5,8 @@ module Overrides
       @resource = resource_class.with_reset_password_token(resource_params[:reset_password_token])
 
       render json: {
-        data: resource_params[:reset_password_token]
+        token: resource_params[:reset_password_token],
+        resource: @resource
       }
     end
   end
