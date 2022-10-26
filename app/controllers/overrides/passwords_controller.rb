@@ -15,7 +15,8 @@ module Overrides
         save: @resource.save!,
         block_given: block_given?,
         require_client_password_reset_token: require_client_password_reset_token?,
-        cookie_enabled: DeviseTokenAuth.cookie_enabled
+        cookie_enabled: DeviseTokenAuth.cookie_enabled,
+        redirect_headers = build_redirect_headers(token.token, token.client, redirect_header_options)
       }
     end
   end
