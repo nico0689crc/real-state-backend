@@ -20,7 +20,8 @@ module Overrides
         token_token: token.token,
         token_client: token.client,
         redirect_headers: build_redirect_headers(token.token, token.client, { reset_password: true }),
-        redirect_url: @redirect_url
+        redirect_url: @redirect_url,
+        build_auth_url:  @resource.build_auth_url(@redirect_url, build_redirect_headers(token.token, token.client, { reset_password: true }))
       }
     end
   end
