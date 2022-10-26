@@ -1,12 +1,12 @@
 require "active_support/core_ext/integer/time"
-Rails.application.routes.default_url_options[:host] = 'api.realestatemc.online'
-Rails.application.config.hosts << "api.realestatemc.online"
+Rails.application.routes.default_url_options[:host] = 'realestatemc.online'
+Rails.application.config.hosts << "realestatemc.online"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   # Code is not reloaded between requests.
   config.cache_classes = true
-  config.hosts << "api.realestatemc.online"
+  config.hosts << "realestatemc.online"
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
