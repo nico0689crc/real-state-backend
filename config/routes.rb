@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  constraints subdomain: 'real-estate-api' do
-    resources :property_attributes
-
+  
     mount_devise_token_auth_for 'User', at: 'auth', controllers: {
       registrations:  'overrides/registrations',
       sessions:  'overrides/sessions',
@@ -26,5 +24,4 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
 end
