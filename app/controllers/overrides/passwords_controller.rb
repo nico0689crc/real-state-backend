@@ -19,7 +19,8 @@ module Overrides
         cookie_enabled: DeviseTokenAuth.cookie_enabled,
         token_token: token.token,
         token_client: token.client,
-        redirect_headers: build_redirect_headers(token.token, token.client, { reset_password: true })
+        redirect_headers: build_redirect_headers(token.token, token.client, { reset_password: true }),
+        redirect_url: @redirect_url
       }
     end
   end
