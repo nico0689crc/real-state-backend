@@ -16,7 +16,8 @@ module Overrides
         block_given: block_given?,
         require_client_password_reset_token: require_client_password_reset_token?,
         cookie_enabled: DeviseTokenAuth.cookie_enabled,
-        redirect_headers: build_redirect_headers(token.token, token.client, { reset_password: true })
+        token_token: token.token,
+        token_client: token.client
       }
     end
   end
