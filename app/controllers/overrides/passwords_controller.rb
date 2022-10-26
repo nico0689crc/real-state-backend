@@ -2,7 +2,7 @@ module Overrides
   class PasswordsController < DeviseTokenAuth::PasswordsController
     
     def edit
-      puts "asdasdasd"
+      render "asdasdasd"
     end
   end
 end
