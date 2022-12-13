@@ -12,13 +12,18 @@ module ApiResponse
 
   def meta_data_json(presenter)
     @meta_data_json ||= {
-      current_page: current_page,
-      total: presenter.presenter_count,
+      current_page: request.query_parameters() ? current_page : 1,
+      total:  presenter.presenter_count,
       pages: presenter.presenter_pages
     }
   end
 
   def current_page
-    @current_page ||= request.query_parameters()[:page][:number].to_i
+
+    if !request.query_parameters().size.zero?
+      @current_page ||= request.query_parameters()[:page][:number].to_i
+    else
+      1
+    end
   end
 end

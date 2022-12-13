@@ -3,8 +3,15 @@ class UserFilter
 
   attr_accessor :query
 
-  def call
-    users = User.all
+  def call(current_user)
+    if current_user.super_administrator?
+      users = User.all
+    elsif current_user.real_estate_administrator?
+      users = current_user.real_estate.real_estate_users
+    else
+      raise ActiveRecord::RecordNotFound
+      return false
+    end
     users = search(users)
     users
   end

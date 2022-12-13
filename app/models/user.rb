@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_one_attached :avatar_image, dependent: :delete_all
+  belongs_to :real_estate, optional: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -13,9 +14,9 @@ class User < ActiveRecord::Base
   enum user_role: [
     :super_administrator,
     :administrator,
+    :real_estate_administrator,
+    :agent,
     :user_regular,
-    :agency_administrator,
-    :agency_user,
     :banned
   ]
 
@@ -104,14 +105,14 @@ class User < ActiveRecord::Base
       if current_user.id == self.id
         [:super_administrator]
       else
-        [:super_administrator, :administrator, :user_regular, :agency_administrator, :agency_user, :banned]
+        [:super_administrator, :administrator, :user_regular, :real_estate_administrator, :agent, :banned]
       end
     elsif current_user.administrator?
       [:administrator]
-    elsif current_user.agency_administrator?
-      [:agency_administrator, :agency_user]
-    elsif current_user.agency_user?
-      [:agency_user]
+    elsif current_user.real_estate_administrator?
+      [:real_estate_administrator, :agent]
+    elsif current_user.agent?
+      [:agent]
     elsif current_user.user_regular?
       [:user_regular]
     else

@@ -6,7 +6,7 @@ module Api
 
         # GET /users
         def index
-          @presenter = UsersPresenter.new(params)
+          @presenter = UsersPresenter.new(params: params, current_user: current_user)
           json_response(data: ActiveModel::Serializer::CollectionSerializer.new(@presenter.users, serializer: UserSerializer), presenter: @presenter)
         end
 

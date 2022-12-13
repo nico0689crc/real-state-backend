@@ -4,13 +4,14 @@ class BasePresenter
 
   PER_PAGE = 10
 
-  def initialize(params)
+  def initialize(params: nil, current_user: nil)
     @params = params
+    @current_user = current_user
     @filter = klass.new(filter_params)
   end
 
   def presenter_count 
-    @properties_count ||= @filter.call.count
+    @properties_count ||= @filter.call(@current_user).count
   end
 
   def presenter_pages 
