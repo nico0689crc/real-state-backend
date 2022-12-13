@@ -7,7 +7,7 @@ module Api
 
         # GET /properties
         def index
-          @presenter = PropertiesPresenter.new(params)
+          @presenter = PropertiesPresenter.new(params: params, current_user: current_user)
           json_response(data: ActiveModel::Serializer::CollectionSerializer.new(@presenter.properties, serializer: PropertySerializer), presenter: @presenter)
         end
 
@@ -18,7 +18,7 @@ module Api
 
         # POST /properties
         def create
-          property_manager = PropertyManager.new(params: params)
+          property_manager = PropertyManager.new(params: params, current_user: current_user)
         
           if property_manager.create
             json_response(message: I18n.t(:success, scope: %i[messages create]), data: PropertySerializer.new(property_manager.object), status: :created)
@@ -29,7 +29,7 @@ module Api
 
         # PATCH/PUT /properties/1
         def update
-          property_manager = PropertyManager.new(params: params, object: @property)
+          property_manager = PropertyManager.new(params: params, current_user: current_user, object: @property)
         
           if property_manager.update
             json_response(message: I18n.t(:success, scope: %i[messages update]), status: :no_content)

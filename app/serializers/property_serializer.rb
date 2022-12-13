@@ -1,6 +1,6 @@
 class PropertySerializer < ActiveModel::Serializer
   
-  attributes :id, :title, :description, :p_type, :p_status, :operating_since, :price, :address, :coordinates, :sq_mts, :bathroom_amount, :beedroom_amount, :created_at, :facilities, :features, :media
+  attributes :id, :title, :description, :p_type, :p_status, :operating_since, :price, :address, :coordinates, :sq_mts, :bathroom_amount, :beedroom_amount, :real_estate_id, :created_at, :facilities, :features, :media
 
   def media
     media = []

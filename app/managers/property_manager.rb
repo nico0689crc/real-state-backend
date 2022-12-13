@@ -6,8 +6,15 @@ class PropertyManager < BaseManager
   def create
     ActiveRecord::Base.transaction do
       @object = Property.new(object_params)
-      if @object.save!
+      @object.user = @current_user
 
+      if @current_user.super_administrator?
+        @object.real_estate_id = @params[:property][:real_estate]
+      else
+        @object.real_estate = @current_user.real_estate
+      end
+
+      if @object.save!
         unless @object.medias.attach(@params[:property][:medias])
           raise ActiveRecord::Rollback
           false
@@ -43,6 +50,7 @@ class PropertyManager < BaseManager
             false
           end
         end if @params[:property].present? && @params[:property][:facilities].present?
+      
       else
         raise ActiveRecord::Rollback
         false
@@ -52,6 +60,12 @@ class PropertyManager < BaseManager
   
   def update
     ActiveRecord::Base.transaction do
+      if @current_user.super_administrator?
+        @object.real_estate_id = @params[:property][:real_estate]
+      else
+        @object.real_estate = @current_user.real_estate
+      end
+
       if @object.update(object_params)
         if @object.medias.attach(@params[:property][:medias])
           true

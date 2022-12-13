@@ -10,7 +10,9 @@ services:
     depends_on:      
       - db
     env_file:
-      - .env.dev     
+      - .env.dev
+    tty: true
+    stdin_open: true     
   db:
     image: postgres:12.3-alpine
     env_file:

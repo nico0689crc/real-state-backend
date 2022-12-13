@@ -6,7 +6,7 @@ class AddFieldsToUsers < ActiveRecord::Migration[7.0]
     add_column :users, :address, :string
     add_column :users, :date_of_birth, :datetime
     add_column :users, :gender, :string
-    add_column :users, :user_role, :integer, null: false, default: 2
+    add_column :users, :user_role, :integer, null: false, default: 4
     add_column :users, :send_password_reset_user_initial, :boolean, default: false
     remove_column :users, :name, :string
     remove_column :users, :nickname, :string
