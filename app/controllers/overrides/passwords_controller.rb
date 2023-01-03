@@ -30,7 +30,7 @@ module Overrides
           redirect_to @resource.build_auth_url(@redirect_url, redirect_headers), allow_other_host: true
         end
       else
-        render_edit_error
+        redirect_to DeviseTokenAuth::Url.generate(@redirect_url, reset_password_period_valid: false), allow_other_host: true
       end
     end
   end
