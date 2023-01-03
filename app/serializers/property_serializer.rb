@@ -4,10 +4,16 @@ class PropertySerializer < ActiveModel::Serializer
 
   def media
     media = []
+    aws_path = "https://real-state-production.s3.amazonaws.com"
+    imagekit_path = "https://ik.imagekit.io/realestatenico0689"
 
     if object.medias.attached?
       media = object.medias.map do |media|
-        { id: media.id, content_type: media.blob.content_type, media_path: media.url }
+        { 
+          id: media.id, 
+          content_type: media.blob.content_type, 
+          media_path: media.url.sub(aws_path, imagekit_path)
+        }
       end
     end
 
