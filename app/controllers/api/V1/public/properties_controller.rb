@@ -6,8 +6,8 @@ module Api
 
         # GET /properties
         def index
-          @presenter = PropertiesPresenter.new(params)
-          json_response(data: ActiveModel::Serializer::CollectionSerializer.new( @presenter.properties, serializer: PropertySerializer))
+          @presenter = PropertiesPresenter.new(params: params)
+          json_response(data: ActiveModel::Serializer::CollectionSerializer.new( @presenter.properties_public, serializer: PropertySerializer))
         end
 
         # GET /properties/1

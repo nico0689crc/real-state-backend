@@ -1,7 +1,7 @@
 class PropertyFilter
   include ActiveModel::Model
 
-  attr_accessor :query
+  attr_accessor :title
 
   def call(current_user)
     if current_user.super_administrator? || current_user.administrator?
@@ -19,10 +19,16 @@ class PropertyFilter
     properties
   end
 
+  def call_public
+    properties = Property.filter_inactives
+    properties = search(properties)
+    properties
+  end
+
   private
 
   def search(properties)
-    properties = properties.where('properties.title LIKE :q', q: "%#{@query}%") if @query.present?
+    properties = properties.where('properties.title ILIKE :q', q: "%#{@title}%") if @title.present?
     properties
   end
 end

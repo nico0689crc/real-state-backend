@@ -32,6 +32,23 @@ User.create(
   user_role: 1
 )
 
+User.create(
+  allow_password_change: false,
+  confirmation_token: "3aBLRD83QTuJJsiokGZ2",
+  confirmed_at: "2022-10-16 11:34:28.726967",
+  confirmation_sent_at: "2022-10-16 11:32:51.9347",
+  email: "nico.06.89crc+1@gmail.com",
+  password: 'AAEERRaaa!@2022',
+  password_confirmation: 'AAEERRaaa!@2022',
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  phone_number: Faker::PhoneNumber.cell_phone_in_e164,
+  address: Faker::Address.full_address,
+  date_of_birth: Faker::Date.in_date_period(year: 1989),
+  gender: Faker::Gender.type,
+  user_role: 4
+)
+
 icons = ["AccessibleIcon", "AdfScannerIcon", "AddchartIcon", "ArrowCircleLeftIcon", "CarRepairIcon"]
 
 5.times.with_index do |index_real_estate|
